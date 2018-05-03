@@ -1,0 +1,14 @@
+1999	a:3 | tale:3 | modern:3 | day:3 | fairy:3 | is:2 | educational:1 | book:1 | this:1 | whole:1 | 
+2000	a:11 | bettlejuice:9 | master:6 | version:5 | :4 | great:4 | tv:3 | fanasy:3 | research:3 | afterlife:3 | 
+2001	beetlejuice:7 | dvd:6 | the:6 | a:4 | is:4 | but:3 | movie:3 | cheated:3 | terrible:3 | they:3 | 
+2002	a:20 | the:15 | great:14 | beetlejuice:12 | movie:9 | is:9 | this:9 | of:9 | it:8 | for:8 | 
+2003	the:23 | of:12 | not:11 | great:10 | and:9 | a:8 | for:8 | in:8 | best:8 | excellent:7 | 
+2004	the:116 | best:73 | a:50 | for:43 | good:41 | i:40 | is:39 | great:36 | coffee:31 | and:31 | 
+2005	the:213 | a:130 | best:121 | for:108 | great:102 | good:90 | :85 | and:82 | of:72 | it:70 | 
+2006	the:876 | great:764 | a:679 | best:569 | good:553 | for:499 | and:495 | tea:441 | it:377 | not:315 | 
+2007	great:3108 | the:2351 | good:2061 | best:1700 | a:1478 | for:1450 | and:1362 | tea:1360 | not:955 | i:933 | 
+2008	great:4511 | the:3774 | good:3245 | a:2623 | for:2484 | best:2374 | and:2267 | not:1740 | tea:1727 | it:1700 | 
+2009	great:7414 | the:5767 | good:4953 | a:4161 | best:3907 | for:3771 | and:3452 | not:2963 | it:2710 | my:2703 | 
+2010	great:11225 | the:8384 | good:7821 | for:6456 | a:5975 | best:5739 | and:5295 | not:4822 | my:4588 | it:4564 | 
+2011	great:20903 | the:15798 | good:14578 | for:12018 | a:11457 | not:10270 | it:9939 | and:9900 | best:9097 | my:9069 | 
+2012	great:24761 | good:18370 | the:18009 | a:14016 | for:13626 | and:12336 | not:12329 | it:12023 | love:10286 | coffee:10275 | 
