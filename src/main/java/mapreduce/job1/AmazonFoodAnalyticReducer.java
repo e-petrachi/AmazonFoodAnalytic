@@ -1,3 +1,5 @@
+package mapreduce.job1;
+
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
@@ -7,10 +9,10 @@ import java.io.IOException;
 import java.util.*;
 
 
-public class AmazonFoodAnalyticReducerOne extends
+public class AmazonFoodAnalyticReducer extends
         Reducer<IntWritable, Text, IntWritable, Text> {
 
-    private static final Logger LOG = Logger.getLogger(AmazonFoodAnalyticReducerOne.class);
+    private static final Logger LOG = Logger.getLogger(AmazonFoodAnalyticReducer.class);
     static { LOG.setLevel(Level.INFO);}
 
     public void reduce(IntWritable key, Iterable<Text> values,

@@ -1,4 +1,7 @@
+package mapreduce.job1;
+
 import com.opencsv.CSVParser;
+import mapreduce.AmazonFoodConstants;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
@@ -13,16 +16,14 @@ import java.util.Date;
 import java.util.StringTokenizer;
 
 
-public class AmazonFoodAnalyticMapperOne extends
+
+public class AmazonFoodAnalyticMapper extends
         Mapper<LongWritable, Text, IntWritable, Text> {
 
     private Text valore;
     private IntWritable chiave;
 
-    private static final int TIME = 7;
-    private static final int SUMMARY = 8;
-
-    private static final Logger LOG = Logger.getLogger(AmazonFoodAnalyticMapperOne.class);
+    private static final Logger LOG = Logger.getLogger(AmazonFoodAnalyticMapper.class);
     static { LOG.setLevel(Level.INFO);}
 
     public void map(LongWritable key, Text value, Context context)
@@ -40,7 +41,7 @@ public class AmazonFoodAnalyticMapperOne extends
 
         long time = 0L;
         try {
-            time = Long.parseLong(campi[TIME]);
+            time = Long.parseLong(campi[AmazonFoodConstants.TIME]);
         } catch (NumberFormatException e) {
             return;
         }
@@ -50,7 +51,7 @@ public class AmazonFoodAnalyticMapperOne extends
         calendar.setTime(date);
         int year = calendar.get(Calendar.YEAR);
 
-        StringTokenizer tokenizer = new StringTokenizer(campi[SUMMARY], " \t\n\r\f,.:;?![]'");
+        StringTokenizer tokenizer = new StringTokenizer(campi[AmazonFoodConstants.SUMMARY], " \t\n\r\f,.:;?![]'");
 
         while (tokenizer.hasMoreTokens()) {
             this.chiave = new IntWritable(year);

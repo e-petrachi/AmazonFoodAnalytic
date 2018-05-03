@@ -1,4 +1,6 @@
-1999	a:3 | tale:3 | modern:3 | day:3 | fairy:3 | is:2 | educational:1 | book:1 | this:1 | whole:1 | 
+// Esecuzione locale 17,584 secondi
+
+1999	a:3 | tale:3 | modern:3 | day:3 | fairy:3 | is:2 | educational:1 | book:1 | this:1 | whole:1 |
 2000	a:11 | bettlejuice:9 | master:6 | version:5 | :4 | great:4 | tv:3 | fanasy:3 | research:3 | afterlife:3 | 
 2001	beetlejuice:7 | dvd:6 | the:6 | a:4 | is:4 | but:3 | movie:3 | cheated:3 | terrible:3 | they:3 | 
 2002	a:20 | the:15 | great:14 | beetlejuice:12 | movie:9 | is:9 | this:9 | of:9 | it:8 | for:8 | 

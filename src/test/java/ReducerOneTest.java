@@ -1,4 +1,4 @@
-import com.opencsv.CSVParser;
+import mapreduce.job1.AmazonFoodAnalyticReducer;
 import org.apache.hadoop.io.Text;
 import org.junit.Before;
 import org.junit.Test;
@@ -6,7 +6,6 @@ import org.junit.Test;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.TreeMap;
 
 import static org.junit.Assert.*;
@@ -18,7 +17,7 @@ public class ReducerOneTest {
     private ArrayList<String> topTen;
     private Text result;
 
-    private AmazonFoodAnalyticReducerOne reducer = new AmazonFoodAnalyticReducerOne();
+    private AmazonFoodAnalyticReducer reducer = new AmazonFoodAnalyticReducer();
 
     @Before
     public void instances() throws IOException {

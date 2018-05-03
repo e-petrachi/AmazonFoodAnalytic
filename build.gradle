@@ -5,13 +5,35 @@ apply plugin: 'java'
 
 sourceCompatibility = 1.8
 
-task fatJar(type: Jar) {
+task fatJar1(type: Jar) {
     manifest {
         attributes  'Implementation-Title': 'Gradle Jar File Example',
                     'Implementation-Version': version,
-                    'Main-Class': 'AmazonFoodAnalytic'
+                    'Main-Class': 'mapreduce.job1.AmazonFoodAnalytic'
     }
-    baseName = 'AmazonFoodAnalytic-all'
+    baseName = 'AmazonFoodAnalytic1-all'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
+
+task fatJar2(type: Jar) {
+    manifest {
+        attributes  'Implementation-Title': 'Gradle Jar File Example',
+                'Implementation-Version': version,
+                'Main-Class': 'mapreduce.job2.AmazonFoodAnalytic'
+    }
+    baseName = 'AmazonFoodAnalytic2-all'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
+
+task fatJar3(type: Jar) {
+    manifest {
+        attributes  'Implementation-Title': 'Gradle Jar File Example',
+                'Implementation-Version': version,
+                'Main-Class': 'mapreduce.job3.AmazonFoodAnalytic'
+    }
+    baseName = 'AmazonFoodAnalytic3-all'
     from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
     with jar
 }
