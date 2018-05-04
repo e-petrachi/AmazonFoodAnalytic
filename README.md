@@ -40,8 +40,8 @@ e per ognuno i tempi d'esecuzione degli stessi rispettivamente in:
 2. Creare i jar relativi ai job col comando `gradle fatJar1`, `gradle fatJar2` e `gradle fatJar3`
 2. Lanciare Hadoop e copiare su hdfs all'interno della cartella input il csv del dataset scompattato
 3. Creare la cartella output in hadoop dove allocare il file risultato
-4. Lanciare il comando seguente per eseguire un qualsiasi job del progetto: 
+4. Lanciare il comando seguente per eseguire un qualsiasi job del progetto, mettendo in numero del job di riferimendo al posto del simbolo ` * `  
 
-```{r, engine='bash', count_lines}
+```zsh
 $HADOOP_HOME/bin/hadoop jar ~/AmazonFoodAnalytic/build/libs/AmazonFoodAnalytic*-all-1.0.0.jar input/Reviews.csv output/result
 ```
