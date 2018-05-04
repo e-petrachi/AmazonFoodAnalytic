@@ -34,13 +34,13 @@ public class AmazonFoodAnalytic extends Configured implements Tool {
         job.setJarByClass(AmazonFoodAnalytic.class);
 
         job.setMapperClass(AmazonFoodAnalyticMapper.class);
-
+        job.setCombinerClass(AmazonFoodAnalyticReducer.class);
         job.setReducerClass(AmazonFoodAnalyticReducer.class);
 
         FileInputFormat.addInputPath(job, new Path(args[0]));
         FileOutputFormat.setOutputPath(job, new Path(args[1]));
 
-        job.setOutputKeyClass(IntWritable.class);
+        job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(Text.class);
 
         job.waitForCompletion(false);

@@ -17,10 +17,10 @@ import java.util.StringTokenizer;
 
 
 public class AmazonFoodAnalyticMapper extends
-        Mapper<LongWritable, Text, IntWritable, Text> {
+        Mapper<LongWritable, Text, Text, Text> {
 
     private Text valore;
-    private IntWritable chiave;
+    private Text chiave;
 
     private static final Logger LOG = Logger.getLogger(AmazonFoodAnalyticMapper.class);
     static { LOG.setLevel(Level.INFO);}
@@ -37,7 +37,15 @@ public class AmazonFoodAnalyticMapper extends
             return;
         }
 
+        String product_id = campi[AmazonFoodConstants.PRODUCTID];
+        String user_id = campi[AmazonFoodConstants.USERID];
 
+        this.chiave = new Text(user_id);
+        this.valore = new Text(product_id);
+
+        context.write(this.chiave, this.valore);
+
+        LOG.debug("* MAPPER_KEY: " + this.chiave.toString() + " * MAPPER_VALUE: " + this.valore.toString());
 
     }
 }

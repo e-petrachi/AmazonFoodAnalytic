@@ -23,7 +23,7 @@ public class AmazonFoodAnalyticMapper extends
     private Text chiave;
 
     private static final Logger LOG = Logger.getLogger(AmazonFoodAnalyticMapper.class);
-    static { LOG.setLevel(Level.DEBUG);}
+    static { LOG.setLevel(Level.INFO);}
 
     public void map(LongWritable key, Text value, Context context)
             throws IOException, InterruptedException {

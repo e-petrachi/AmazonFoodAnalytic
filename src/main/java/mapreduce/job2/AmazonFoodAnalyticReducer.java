@@ -19,7 +19,7 @@ public class AmazonFoodAnalyticReducer extends
     private Text result;
 
     private static final Logger LOG = Logger.getLogger(AmazonFoodAnalyticReducer.class);
-    static { LOG.setLevel(Level.DEBUG);}
+    static { LOG.setLevel(Level.INFO);}
 
     public void reduce(Text key, Iterable<Text> values,
                        Context context) throws IOException, InterruptedException {
@@ -28,7 +28,8 @@ public class AmazonFoodAnalyticReducer extends
 
         this.result = this.getResult(year2score);
 
-        context.write(key, this.result);
+        if (result.getLength() > 0)
+            context.write(key, this.result);
 
         LOG.debug("* REDUCER_KEY: " + key + " * REDUCER_VALUE: " + this.result);
     }
