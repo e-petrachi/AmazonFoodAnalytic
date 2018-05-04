@@ -33,3 +33,15 @@ e per ognuno i tempi d'esecuzione degli stessi rispettivamente in:
 * [JOB1](/src/main/resources/job1_result.txt) File completo.
 * [JOB2](/src/main/resources/job2_result.txt) Primi 32K del file.
 * [JOB3](/src/main/resources/job3_result.txt) Primi 32K del file.
+
+## ESECUZIONE
+
+1. Una volta scaricato i repository eseguire `gradle build` per scaricare le dipendenze del progetto
+2. Creare i jar relativi ai job col comando `gradle fatJar1`, `gradle fatJar2` e `gradle fatJar3`
+2. Lanciare Hadoop e copiare su hdfs all'interno della cartella input il csv del dataset scompattato
+3. Creare la cartella output in hadoop dove allocare il file risultato
+4. Lanciare il comando seguente per eseguire un qualsiasi job del progetto: 
+
+```{r, engine='bash', count_lines}
+$HADOOP_HOME/bin/hadoop jar ~/AmazonFoodAnalytic/build/libs/AmazonFoodAnalytic*-all-1.0.0.jar input/Reviews.csv output/result
+```
