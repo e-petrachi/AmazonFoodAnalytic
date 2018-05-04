@@ -15,8 +15,21 @@ dal 1999 al 2012. Il dataset è in formato CSV e ogni riga ha i seguenti campi:
 * Summary (summary of the review),
 * Text (text of the review).
 
+## STRUTTURA 
+
 Il progetto in JAVA contiene rispettivamente in MapReduce:
 
-[1.](/src/main/java/job1/AmazonFoodAnalytic) Un job che sia in grado di generare, per ciascun anno, le dieci parole che sono state più usate nelle recensioni (campo summary) in ordine di frequenza, indicando, per ogni parola, la sua frequenza, ovvero il numero di occorrenze della parola nelle recensioni di quell’anno.
-[2.](/src/main/java/job2/AmazonFoodAnalytic) Un job che sia in grado di generare, per ciascun prodotto, lo score medio ottenuto in ciascuno degli anni compresi tra il 2003 e il 2012, indicando ProductId seguito da tutti gli score medi ottenuti negli anni dell’intervallo. Il risultato deve essere ordinato in base al ProductId.
-[3.](/src/main/java/job3/AmazonFoodAnalytic) Un job in grado di generare coppie di prodotti che hanno almeno un utente in comune, ovvero che sono stati recensiti da uno stesso utente, indicando, per ciascuna coppia, il numero di utenti in comune. Il risultato deve essere ordinato in base allo ProductId del primo elemento della coppia e, possibilmente, non deve presentare duplicati.
+* [1.](/src/main/java/mapreduce/job1/AmazonFoodAnalytic.java) Un job che sia in grado di generare, per ciascun anno, le dieci parole che sono state più usate nelle recensioni (campo summary) in ordine di frequenza, indicando, per ogni parola, la sua frequenza, ovvero il numero di occorrenze della parola nelle recensioni di quell’anno.
+
+* [2.](/src/main/java/job2/AmazonFoodAnalytic.java) Un job che sia in grado di generare, per ciascun prodotto, lo score medio ottenuto in ciascuno degli anni compresi tra il 2003 e il 2012, indicando ProductId seguito da tutti gli score medi ottenuti negli anni dell’intervallo. Il risultato deve essere ordinato in base al ProductId.
+
+* [3.](/src/main/java/job3/AmazonFoodAnalytic.java) Un job in grado di generare coppie di prodotti che hanno almeno un utente in comune, ovvero che sono stati recensiti da uno stesso utente, indicando, per ciascuna coppia, il numero di utenti in comune. Il risultato deve essere ordinato in base allo ProductId del primo elemento della coppia e, possibilmente, non deve presentare duplicati.
+
+## RISULTATI 
+
+Sono riportati i primi risultati di ciascuno dei job sopra descritto per un confronto veloce,
+e per ognuno i tempi d'esecuzione degli stessi rispettivamente in:
+
+* [JOB1](/src/main/resources/job1_result.txt) File completo.
+* [JOB2](/src/main/resources/job2_result.txt) Primi 32K del file.
+* [JOB3](/src/main/resources/job3_result.txt) Primi 32K del file.
