@@ -8,42 +8,54 @@ sourceCompatibility = 1.8
 
 
 task fatJar1(type: Jar) {
+    dependsOn configurations.runtime
+    from {
+        (configurations.runtime - configurations.provided).collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
     manifest {
         attributes  'Implementation-Title': 'Gradle Jar File Example',
                     'Implementation-Version': version,
                     'Main-Class': 'mapreduce.job1.AmazonFoodAnalytic'
     }
     baseName = 'AmazonFoodAnalytic1-all'
-    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
     with jar
     zip64 = true
-    exclude 'META-INF/*.RSA', 'META-INF/*.SF','META-INF/*.DSA'
 }
 
 task fatJar2(type: Jar) {
+    dependsOn configurations.runtime
+    from {
+        (configurations.runtime - configurations.provided).collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
     manifest {
         attributes  'Implementation-Title': 'Gradle Jar File Example',
                 'Implementation-Version': version,
                 'Main-Class': 'mapreduce.job2.AmazonFoodAnalytic'
     }
     baseName = 'AmazonFoodAnalytic2-all'
-    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
     with jar
     zip64 = true
-    exclude 'META-INF/*.RSA', 'META-INF/*.SF','META-INF/*.DSA'
 }
 
 task fatJar3(type: Jar) {
+    dependsOn configurations.runtime
+    from {
+        (configurations.runtime - configurations.provided).collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
     manifest {
         attributes  'Implementation-Title': 'Gradle Jar File Example',
                 'Implementation-Version': version,
                 'Main-Class': 'mapreduce.job3.AmazonFoodAnalytic'
     }
     baseName = 'AmazonFoodAnalytic3-all'
-    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
     with jar
     zip64 = true
-    exclude 'META-INF/*.RSA', 'META-INF/*.SF','META-INF/*.DSA'
 }
 
 task fatJar4(type: Jar) {
@@ -64,10 +76,15 @@ repositories {
     mavenCentral()
 }
 
+configurations {
+    provided
+    compile.extendsFrom provided
+}
+
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
     compile group: 'org.apache.hadoop', name: 'hadoop-core', version: '1.2.1'
-    compile group: 'org.apache.spark', name: 'spark-core_2.11', version: '2.3.0'
+    provided group: 'org.apache.spark', name: 'spark-core_2.11', version: '2.3.0'
     compile group: 'log4j', name: 'log4j', version: '1.2.17'
     compile group: 'com.opencsv', name: 'opencsv', version: '4.0'
 }
