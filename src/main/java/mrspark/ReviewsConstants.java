@@ -1,4 +1,4 @@
-package spark;
+package mrspark;
 
 import java.io.Serializable;
 import java.time.Instant;
@@ -20,6 +20,12 @@ public class ReviewsConstants implements Serializable {
 
     public static final int YEARFROM = 2003;
     public static final int YEARTO = 2012;
+
+    public ReviewsConstants(long TIME, String SUMMARY) {
+        this.TIME = TIME;
+        this.SUMMARY = SUMMARY;
+        this.setYEAR();
+    }
 
     public ReviewsConstants(int ID, String PRODUCTID, String USERID, int SCORE, long TIME, String SUMMARY) {
         this.ID = ID;
@@ -134,5 +140,12 @@ public class ReviewsConstants implements Serializable {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         this.YEAR = calendar.get(Calendar.YEAR);
+    }
+
+    @Override
+    public String toString() {
+        return "ReviewsConstants{" +
+                "YEAR=" + YEAR +
+                '}';
     }
 }

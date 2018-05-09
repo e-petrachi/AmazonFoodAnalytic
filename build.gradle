@@ -2,6 +2,7 @@ group 'BigData'
 version '1.0.0'
 
 apply plugin: 'java'
+apply plugin: 'idea'
 
 sourceCompatibility = 1.8
 
@@ -15,6 +16,8 @@ task fatJar1(type: Jar) {
     baseName = 'AmazonFoodAnalytic1-all'
     from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
     with jar
+    zip64 = true
+    exclude 'META-INF/*.RSA', 'META-INF/*.SF','META-INF/*.DSA'
 }
 
 task fatJar2(type: Jar) {
@@ -26,6 +29,8 @@ task fatJar2(type: Jar) {
     baseName = 'AmazonFoodAnalytic2-all'
     from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
     with jar
+    zip64 = true
+    exclude 'META-INF/*.RSA', 'META-INF/*.SF','META-INF/*.DSA'
 }
 
 task fatJar3(type: Jar) {
@@ -37,17 +42,21 @@ task fatJar3(type: Jar) {
     baseName = 'AmazonFoodAnalytic3-all'
     from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
     with jar
+    zip64 = true
+    exclude 'META-INF/*.RSA', 'META-INF/*.SF','META-INF/*.DSA'
 }
-task fatJar1s(type: Jar) {
+
+task fatJar4(type: Jar) {
     manifest {
         attributes  'Implementation-Title': 'Gradle Jar File Example',
                 'Implementation-Version': version,
-                'Main-Class': 'spark.job1.AmazonFoodAnalytic'
+                'Main-Class': 'mrspark.job1.AmazonFoodAnalytic'
     }
-    baseName = 'AmazonFoodAnalytic1s-all'
-    zip64=true
+    baseName = 'AmazonFoodAnalytic4-all'
     from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
     with jar
+    zip64 = true
+    exclude 'META-INF/*.RSA', 'META-INF/*.SF','META-INF/*.DSA'
 }
 
 
@@ -59,10 +68,6 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
     compile group: 'org.apache.hadoop', name: 'hadoop-core', version: '1.2.1'
     compile group: 'org.apache.spark', name: 'spark-core_2.11', version: '2.3.0'
-    //compile group: 'org.apache.spark', name: 'spark-sql_2.11', version: '2.3.0'
-    //provided group: 'org.apache.spark', name: 'spark-streaming_2.11', version: '2.3.0'
-    //compile group: 'org.apache.spark', name: 'spark-mllib_2.11', version: '2.3.0'
-    //compile group: 'org.apache.spark', name: 'spark-graphx_2.11', version: '2.3.0'
     compile group: 'log4j', name: 'log4j', version: '1.2.17'
     compile group: 'com.opencsv', name: 'opencsv', version: '4.0'
 }
