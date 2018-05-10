@@ -1,0 +1,16 @@
+// Esecuzione locale 18,066 secondi
+
+1999	fairy:3 | a:3 | tale:3 | day:3 | modern:3 | is:2 | this:1 | your:1 | to:1 | time:1 |
+2000	a:11 | bettlejuice:9 | version:5 | :4 | great:4 | funny:3 | research:3 | fanasy:3 | master:3 | comedic:3 | 
+2001	beetlejuice:7 | is:4 | a:4 | great:3 | greatmovie:3 | movie:3 | the:3 | beatlejuice:2 | cakes:1 | style:1 | 
+2002	a:15 | great:14 | the:12 | beetlejuice:12 | movie:9 | for:8 | :7 | is:7 | this:7 | comedy:6 | 
+2003	the:23 | of:12 | not:10 | for:8 | a:8 | in:8 | best:8 | excellent:7 | great:7 | outstanding:7 | 
+2004	the:108 | best:72 | a:43 | for:42 | i:39 | good:39 | is:37 | great:36 | ever:29 | coffee:29 | 
+2005	the:191 | a:123 | best:109 | for:100 | great:98 | good:85 | :76 | and:70 | of:65 | this:65 | 
+2006	the:802 | great:687 | a:609 | best:540 | good:507 | for:432 | tea:404 | and:387 | it:325 | :277 | 
+2007	great:2924 | the:2213 | good:1922 | best:1661 | for:1351 | a:1347 | tea:1301 | and:1146 | i:870 | :822 | 
+2008	great:4292 | the:3456 | good:2975 | a:2383 | best:2307 | for:2274 | and:1965 | tea:1675 | it:1501 | my:1386 | 
+2009	great:6941 | the:5273 | good:4608 | best:3740 | a:3648 | for:3394 | and:2915 | my:2528 | tea:2481 | not:2383 | 
+2010	great:10614 | the:7700 | good:7201 | for:5962 | best:5593 | a:5373 | and:4473 | my:4355 | it:3915 | not:3856 | 
+2011	great:19711 | the:14212 | good:13410 | for:11097 | a:10321 | best:8845 | it:8723 | my:8642 | not:8437 | and:8436 | 
+2012	great:23209 | good:16948 | the:16383 | a:12502 | for:12437 | it:10590 | and:10574 | not:10149 | love:9727 | coffee:9680 | 

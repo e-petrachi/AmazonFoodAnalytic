@@ -19,6 +19,8 @@ public class AmazonFoodAnalytic {
     static { LOG.setLevel(Level.DEBUG);}
 
     public static void main(String[] args) throws Exception {
+        long startTime = System.currentTimeMillis();
+
         SparkConf conf = new SparkConf().setAppName("mrspark.job1.AmazonFoodAnalytic");
         JavaSparkContext sc = new JavaSparkContext(conf);
 
@@ -62,6 +64,8 @@ public class AmazonFoodAnalytic {
             writer.print("\n");
         }
         writer.close();
+
+        LOG.info("\n\n\n\n\n\nJob Finished in " + (System.currentTimeMillis() - startTime) / 1000.0 + " seconds\n\n\n\n\n\n");
 
         sc.stop();
 
