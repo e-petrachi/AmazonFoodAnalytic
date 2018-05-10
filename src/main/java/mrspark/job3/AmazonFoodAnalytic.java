@@ -43,7 +43,7 @@ public class AmazonFoodAnalytic {
         JavaPairRDD<Tuple2<String,String>, Integer> id2id2occ = user2id2id
                 .mapToPair( x -> new Tuple2<>(x._2(),1)).reduceByKey((x,y) -> x + y);
 
-        // rimuovi doppioni di coppie inverse
+        // TODO rimuovi doppioni di coppie inverse
 
 
         // args[1] = path and namefile

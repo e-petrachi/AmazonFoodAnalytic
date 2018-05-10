@@ -58,7 +58,7 @@ task fatJar3(type: Jar) {
     zip64 = true
 }
 
-task fatJar4(type: Jar) {
+task fatJar1s(type: Jar) {
     dependsOn configurations.runtime
     from {
         (configurations.runtime - configurations.provided_2).collect {
@@ -70,13 +70,13 @@ task fatJar4(type: Jar) {
                 'Implementation-Version': version,
                 'Main-Class': 'mrspark.job1.AmazonFoodAnalytic'
     }
-    baseName = 'AmazonFoodAnalytic4-all'
+    baseName = 'AmazonFoodAnalytic1s-all'
     with jar
     zip64 = true
     exclude 'META-INF/*.RSA', 'META-INF/*.SF','META-INF/*.DSA'
 }
 
-task fatJar5(type: Jar) {
+task fatJar2s(type: Jar) {
     dependsOn configurations.runtime
     from {
         (configurations.runtime - configurations.provided_2).collect {
@@ -88,13 +88,13 @@ task fatJar5(type: Jar) {
                 'Implementation-Version': version,
                 'Main-Class': 'mrspark.job2.AmazonFoodAnalytic'
     }
-    baseName = 'AmazonFoodAnalytic5-all'
+    baseName = 'AmazonFoodAnalytic2s-all'
     with jar
     zip64 = true
     exclude 'META-INF/*.RSA', 'META-INF/*.SF','META-INF/*.DSA'
 }
 
-task fatJar6(type: Jar) {
+task fatJar3s(type: Jar) {
     dependsOn configurations.runtime
     from {
         (configurations.runtime - configurations.provided_2).collect {
@@ -106,7 +106,7 @@ task fatJar6(type: Jar) {
                 'Implementation-Version': version,
                 'Main-Class': 'mrspark.job3.AmazonFoodAnalytic'
     }
-    baseName = 'AmazonFoodAnalytic6-all'
+    baseName = 'AmazonFoodAnalytic3s-all'
     with jar
     zip64 = true
     exclude 'META-INF/*.RSA', 'META-INF/*.SF','META-INF/*.DSA'
