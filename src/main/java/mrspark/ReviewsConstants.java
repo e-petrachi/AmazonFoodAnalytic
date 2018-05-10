@@ -18,13 +18,20 @@ public class ReviewsConstants implements Serializable {
     private String TEXT;
     private int YEAR;
 
-    public static final int YEARFROM = 2003;
-    public static final int YEARTO = 2012;
-
     public ReviewsConstants(long TIME, String SUMMARY) {
         this.TIME = TIME;
         this.SUMMARY = SUMMARY;
         this.setYEAR();
+    }
+    public ReviewsConstants(String PRODUCTID, String USERID) {
+        this.PRODUCTID = PRODUCTID;
+        this.USERID = USERID;
+    }
+    public ReviewsConstants(String PRODUCTID,long TIME, int SCORE) {
+        this.PRODUCTID = PRODUCTID;
+        this.TIME = TIME;
+        this.setYEAR();
+        this.SCORE = SCORE;
     }
 
     public ReviewsConstants(int ID, String PRODUCTID, String USERID, int SCORE, long TIME, String SUMMARY) {

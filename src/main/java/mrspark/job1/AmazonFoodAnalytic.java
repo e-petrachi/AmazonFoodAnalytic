@@ -7,6 +7,7 @@ import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
+import scala.Int;
 import scala.Tuple2;
 import mrspark.ReviewsConstants;
 
@@ -22,6 +23,8 @@ public class AmazonFoodAnalytic {
         long startTime = System.currentTimeMillis();
 
         SparkConf conf = new SparkConf().setAppName("mrspark.job1.AmazonFoodAnalytic");
+        conf.set("spark.hadoop.validateOutputSpecs", "false");
+
         JavaSparkContext sc = new JavaSparkContext(conf);
 
         // args[0] = path and namefile.csv
@@ -37,35 +40,40 @@ public class AmazonFoodAnalytic {
                 return null;
             }
             return new ReviewsConstants(time,fields[AmazonFoodConstants.SUMMARY]);
-        });
+        }).filter(Objects::nonNull).filter( rc -> rc.getYEAR() >= 1999);
 
 
         JavaPairRDD<Tuple2<Integer,String>, Integer> years2word2occ = map4years_word(data)
                 .reduceByKey((a, b) -> a + b );
 
-        JavaPairRDD<Integer, Tuple2<Integer, String>> top = years2word2occ
-                .mapToPair(y -> new Tuple2<>(y._1()._1(), new Tuple2<>(y._2(), y._1()._2())))
-                .filter( y -> y._1().intValue() >= 1999);
+        JavaPairRDD<Integer, Tuple2<Integer,String>> occ2years2word = years2word2occ
+                .mapToPair( x -> new Tuple2<>(x._2(),x._1()) ).sortByKey(false);
 
-        ArrayList<Integer> keys = new ArrayList<>(top.keys().distinct().collect());
-        Collections.sort(keys, (x,y) -> Integer.compare(x,y));
+        JavaPairRDD<Integer, Tuple2<Integer, String>> top = occ2years2word
+                .mapToPair(y -> new Tuple2<>(y._2()._1(), new Tuple2<>(y._1(), y._2()._2())));
 
-        // args[1] = path and namefile.txt
-        PrintWriter writer = new PrintWriter(args[1], "UTF-8");
+        JavaPairRDD<Integer, Iterable<Tuple2<Integer, String>>> result = top.groupByKey().sortByKey();
 
-        for (Integer k : keys){
-            List<Tuple2<Integer,String>> rdd = sc.parallelizePairs(top.lookup(k))
-                    .sortByKey(false)
-                    .take(10);
+        JavaPairRDD<Integer, List<Tuple2<Integer, String>>> stampato = result
+                .mapToPair( x -> {
+                    ArrayList<Tuple2<Integer, String>> t = new ArrayList<>();
+                    int i = 0;
 
-            writer.print("" + k + "\t");
-            rdd.forEach( row -> writer.print(row._2().toString() + ":" + row._1().toString() + " | " ));
+                    for (Tuple2<Integer,String> el : x._2()){
+                        if(i < 10)
+                            t.add(el);
+                        else
+                            break;
+                        i++;
+                    }
+                    return new Tuple2<>(x._1(),t);
+                });
 
-            writer.print("\n");
-        }
-        writer.close();
+        // args[1] = path and namefile
+        stampato.coalesce(1).saveAsTextFile(args[1]);
 
         LOG.info("\n\n\n\n\n\nJob Finished in " + (System.currentTimeMillis() - startTime) / 1000.0 + " seconds\n\n\n\n\n\n");
+
 
         sc.stop();
 
@@ -73,7 +81,7 @@ public class AmazonFoodAnalytic {
 
 
     private static JavaPairRDD<Tuple2<Integer,String>, Integer> map4years_word(JavaRDD<ReviewsConstants> data) {
-        return data.filter(Objects::nonNull).flatMapToPair( rc -> {
+        return data.flatMapToPair( rc -> {
 
             StringTokenizer tokenizer = new StringTokenizer(rc.getSUMMARY(), " \t\n\r\f,.:;?![]'");
             ArrayList<Tuple2<Tuple2<Integer,String>, Integer>> list2tuples = new ArrayList<>();

@@ -8,8 +8,10 @@ import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
+import scala.Int;
 import scala.Tuple2;
 
+import java.io.PrintWriter;
 import java.util.*;
 
 public class AmazonFoodAnalytic {
@@ -18,13 +20,17 @@ public class AmazonFoodAnalytic {
     static { LOG.setLevel(Level.DEBUG);}
 
     public static void main(String[] args) throws Exception {
-        SparkConf conf = new SparkConf().setAppName("mrspark.job1.AmazonFoodAnalytic");
+        long startTime = System.currentTimeMillis();
+
+        SparkConf conf = new SparkConf().setAppName("mrspark.job2.AmazonFoodAnalytic");
+        conf.set("spark.hadoop.validateOutputSpecs", "false");
+
         JavaSparkContext sc = new JavaSparkContext(conf);
 
         // args[0] = path and namefile.csv
         JavaRDD<String> csvdata = sc.textFile(args[0]);
 
-        JavaRDD<ReviewsConstants> data = csvdata.map((String csvline) -> {
+        JavaRDD<ReviewsConstants> data = csvdata.map( csvline -> {
             String[] fields = csvline.split(",");
 
             long time;
@@ -33,42 +39,40 @@ public class AmazonFoodAnalytic {
             } catch (Exception e){
                 return null;
             }
-            return new ReviewsConstants(time,fields[AmazonFoodConstants.SUMMARY]);
-        });
 
-
-        LOG.debug("FINE!");
-
-    }
-
-    private static JavaPairRDD<Integer, String> map4years(JavaRDD<ReviewsConstants> data) {
-        JavaPairRDD<Integer, String> couples = data.filter(Objects::nonNull).flatMapToPair((ReviewsConstants rc) -> {
-
-            StringTokenizer tokenizer = new StringTokenizer(rc.getSUMMARY(), " \t\n\r\f,.:;?![]'");
-            ArrayList<Tuple2<Integer, String>> list2tuples = new ArrayList<>();
-            while (tokenizer.hasMoreTokens()) {
-                list2tuples.add(new Tuple2<>(rc.getYEAR(), tokenizer.nextToken().toLowerCase().replaceAll("[^a-zA-Z0-9]", "")));
+            int score;
+            try {
+                score = Integer.parseInt(fields[AmazonFoodConstants.SCORE]);
+            } catch (Exception e){
+                return null;
             }
-            return list2tuples.iterator();
 
-        });
-        return couples;
-    }
+            return new ReviewsConstants(fields[AmazonFoodConstants.PRODUCTID],time,score);
+        }).filter(Objects::nonNull).filter(x -> x.getYEAR() >= AmazonFoodConstants.YEARFROM && x.getYEAR() <= AmazonFoodConstants.YEARTO);
 
 
+        JavaPairRDD<Tuple2<String,Integer>, Integer> id2year2score = data
+                .mapToPair( rc -> new Tuple2<>(new Tuple2<>(rc.getPRODUCTID(),rc.getYEAR()), rc.getSCORE()));
 
-    private static JavaPairRDD<Tuple2<Integer,String>, Integer> reduce4words(JavaPairRDD<Tuple2<Integer,String>, Integer> years2word2occ) {
-        return years2word2occ.reduceByKey((a, b) -> a + b );
-    }
+        JavaPairRDD<Tuple2<String,Integer>, Tuple2<Integer, Integer>> id2year2score2count = data
+                .mapToPair( rc -> new Tuple2<>(new Tuple2<>(rc.getPRODUCTID(),rc.getYEAR()), new Tuple2<>(rc.getSCORE(),1)))
+                .reduceByKey((a,b) -> new Tuple2<>(a._1() + b._1(),a._2() + b._2()));
 
-    private static List<Tuple2<Integer, Tuple2<Integer,String>>> top10words(JavaPairRDD<Tuple2<Integer,String>, Integer> years2word2count) {
+        JavaPairRDD<Tuple2<String,Integer>, Double> id2year2avgscore = id2year2score2count
+                .mapToPair( x -> new Tuple2<>(x._1(), new Double(x._2()._1()/x._2()._2())));
 
-        List<Tuple2<Integer, Tuple2<Integer,String>>> top10 =
-                years2word2count.mapToPair( y2w2c -> new Tuple2<>(y2w2c._2(), new Tuple2<>(y2w2c._1()._1(),y2w2c._1()._2())))
-                        .sortByKey(false)
-                        .take(10);
+        JavaPairRDD<String, Tuple2<Integer,Double>> result = id2year2avgscore
+                .mapToPair( x -> new Tuple2<>(x._1()._1(), new Tuple2<>(x._1()._2(),x._2())));
 
-        return top10;
+        JavaPairRDD<String, Iterable<Tuple2<Integer,Double>>> stampato = result.groupByKey().sortByKey();
+
+        // args[1] = path and namefile
+        stampato.coalesce(1).saveAsTextFile(args[1]);
+
+
+        LOG.info("\n\n\n\n\n\nJob Finished in " + (System.currentTimeMillis() - startTime) / 1000.0 + " seconds\n\n\n\n\n\n");
+
+        sc.stop();
 
     }
 
