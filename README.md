@@ -16,6 +16,7 @@ dal 1999 al 2012. Il dataset è in formato CSV e ogni riga ha i seguenti campi:
 * Text (text of the review).
 
 - - - -
+- - - -
 
 ## STRUTTURA MAPREDUCE
 
@@ -55,6 +56,7 @@ $HADOOP_HOME/bin/hadoop jar ~/AmazonFoodAnalytic/build/libs/AmazonFoodAnalytic*-
 ```
 
 - - - -
+- - - -
 
 ## STRUTTURA SPARK
 
@@ -91,6 +93,7 @@ e per ognuno i tempi d'esecuzione degli stessi rispettivamente in:
 $SPARK_HOME/bin/spark-submit --class mrspark.job*.AmazonFoodAnalytic ~/AmazonFoodAnalytic*s-all-1.0.0.jar ~/Reviews.csv ~/job*_result
 ```
 
+- - - -
 - - - -
 
 ## STRUTTURA HIVE
