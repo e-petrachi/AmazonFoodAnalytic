@@ -10,7 +10,12 @@ import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
 import scala.Tuple2;
 
+import java.io.Serializable;
+import java.util.Comparator;
 import java.util.Objects;
+import java.util.Optional;
+
+import static scala.xml.Utility.serialize;
 
 public class AmazonFoodAnalytic {
 
@@ -36,15 +41,25 @@ public class AmazonFoodAnalytic {
 
 
         JavaPairRDD<String, String> user2id = data
-                .mapToPair( rc -> new Tuple2<>(rc.getUSERID(),rc.getPRODUCTID())).distinct();
+                .mapToPair( rc -> new Tuple2<>(rc.getUSERID(),rc.getPRODUCTID()))
+                .distinct();
 
-        JavaPairRDD<String, Tuple2<String,String>> user2id2id = user2id.join(user2id);
+        JavaPairRDD<String, Optional<String>> user2id_copia = data
+                .mapToPair( rc -> new Tuple2<>(rc.getUSERID(),Optional.of(rc.getPRODUCTID())))
+                .distinct();
+
+
+        JavaPairRDD<String, Tuple2<String,String>> user2id2id = user2id
+                .join(user2id)
+                .filter(x -> ! x._2()._1().equals(x._2()._2()))
+                .mapValues( x -> (x._1().compareTo(x._2()) < 0) ? x : new Tuple2<>(x._2(),x._1()))
+                .distinct();
+
 
         JavaPairRDD<Tuple2<String,String>, Integer> id2id2occ = user2id2id
-                .mapToPair( x -> new Tuple2<>(x._2(),1)).reduceByKey((x,y) -> x + y);
-
-        // TODO rimuovi doppioni di coppie inverse
-
+                .mapToPair( x -> new Tuple2<>(x._2(),1))
+                .reduceByKey((x,y) -> x + y)
+                .sortByKey( new AscendingSerializableComparator());
 
         // args[1] = path and namefile
         id2id2occ.coalesce(1).saveAsTextFile(args[1]);
@@ -56,5 +71,5 @@ public class AmazonFoodAnalytic {
 
     }
 
-
 }
+

@@ -27,7 +27,9 @@ la sua frequenza, ovvero il numero di occorrenze della parola nelle recensioni d
 lo score medio ottenuto in ciascuno degli anni compresi tra il 2003 e il 2012, indicando ProductId seguito da tutti gli score medi ottenuti 
 negli anni dell’intervallo. Il risultato deve essere ordinato in base al ProductId.
 
-* [3.](/src/main/java/mapreduce/job3/AmazonFoodAnalytic.java) Un job in grado di generare coppie di prodotti che hanno almeno un utente in comune, ovvero che sono stati recensiti da uno stesso utente, indicando, per ciascuna coppia, il numero di utenti in comune. Il risultato deve essere ordinato in base allo ProductId del primo elemento della coppia e, possibilmente, non deve presentare duplicati.
+* [3.](/src/main/java/mapreduce/job3/AmazonFoodAnalytic.java) Un job in grado di generare coppie di prodotti che hanno almeno un utente in comune, 
+ovvero che sono stati recensiti da uno stesso utente, indicando, per ciascuna coppia, il numero di utenti in comune. 
+Il risultato deve essere ordinato in base allo ProductId del primo elemento della coppia e, possibilmente, non deve presentare duplicati.
 
 ## RISULTATI 
 
@@ -62,7 +64,9 @@ la sua frequenza, ovvero il numero di occorrenze della parola nelle recensioni d
 lo score medio ottenuto in ciascuno degli anni compresi tra il 2003 e il 2012, indicando ProductId seguito da tutti gli score medi ottenuti 
 negli anni dell’intervallo. Il risultato deve essere ordinato in base al ProductId.
 
-* [3.](/src/main/java/mrspark/job3/AmazonFoodAnalytic.java) Un job in grado di generare coppie di prodotti che hanno almeno un utente in comune, ovvero che sono stati recensiti da uno stesso utente, indicando, per ciascuna coppia, il numero di utenti in comune. Il risultato deve essere ordinato in base allo ProductId del primo elemento della coppia e, possibilmente, non deve presentare duplicati.
+* [3.](/src/main/java/mrspark/job3/AmazonFoodAnalytic.java) Un job in grado di generare coppie di prodotti che hanno almeno un utente in comune, 
+ovvero che sono stati recensiti da uno stesso utente, indicando, per ciascuna coppia, il numero di utenti in comune. 
+Il risultato deve essere ordinato in base allo ProductId del primo elemento della coppia e, possibilmente, non deve presentare duplicati.
 
 ## RISULTATI 
 
