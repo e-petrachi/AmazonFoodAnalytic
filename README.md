@@ -86,3 +86,37 @@ e per ognuno i tempi d'esecuzione degli stessi rispettivamente in:
 ```zsh
 $SPARK_HOME/bin/spark-submit --class mrspark.job*.AmazonFoodAnalytic ~/AmazonFoodAnalytic*s-all-1.0.0.jar ~/Reviews.csv ~/job*_result
 ```
+
+## STRUTTURA HIVE
+
+Il progetto in JAVA contiene rispettivamente in **Hive**:
+
+* [1.](/hive/job1.hql) Un job che sia in grado di generare, per ciascun anno, 
+le dieci parole che sono state più usate nelle recensioni (campo summary) in ordine di frequenza, indicando, per ogni parola, 
+la sua frequenza, ovvero il numero di occorrenze della parola nelle recensioni di quell’anno.
+
+* [2.](/hive/job2.hql) Un job che sia in grado di generare, per ciascun prodotto, 
+lo score medio ottenuto in ciascuno degli anni compresi tra il 2003 e il 2012, indicando ProductId seguito da tutti gli score medi ottenuti 
+negli anni dell’intervallo. Il risultato deve essere ordinato in base al ProductId.
+
+* [3.](/hive/job3.hql) Un job in grado di generare coppie di prodotti che hanno almeno un utente in comune, 
+ovvero che sono stati recensiti da uno stesso utente, indicando, per ciascuna coppia, il numero di utenti in comune. 
+Il risultato deve essere ordinato in base allo ProductId del primo elemento della coppia e, possibilmente, non deve presentare duplicati.
+
+## RISULTATI 
+
+Sono riportati i primi risultati di ciascuno dei job sopra descritto per un confronto veloce,
+e per ognuno i tempi d'esecuzione degli stessi rispettivamente in:
+
+* [JOB1](/src/main/resources/job1h_result.txt) File completo.
+* [JOB2](/src/main/resources/job2h_result.txt) Primi 32K del file.
+* [JOB3](/src/main/resources/job3h_result.txt) Primi 32K del file.
+
+## ESECUZIONE
+
+1. Una volta scaricato i repository avviare hadoop e le relative cartelle per l'esecuzione di hive
+2. Lanciare il comando seguente per eseguire un qualsiasi job del progetto, mettendo in numero del job di riferimendo al posto del simbolo ` * `  
+
+```zsh
+$ $HIVE_HOME/bin/hive -f ~/hive/job*.hql 
+```

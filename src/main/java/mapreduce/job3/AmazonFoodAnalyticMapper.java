@@ -18,6 +18,7 @@ import java.util.StringTokenizer;
 
 public class AmazonFoodAnalyticMapper extends
         Mapper<LongWritable, Text, Text, Text> {
+    // il mapper si legge il file con chiave LongWritable x forza !
 
     private Text valore;
     private Text chiave;

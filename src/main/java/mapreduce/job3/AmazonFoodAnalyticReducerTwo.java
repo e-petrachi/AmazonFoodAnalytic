@@ -15,21 +15,20 @@ public class AmazonFoodAnalyticReducerTwo extends
         Reducer<Text, IntWritable, Text, IntWritable> {
 
     private IntWritable result;
-    private Text chiave;
 
     private static final Logger LOG = Logger.getLogger(AmazonFoodAnalyticReducerTwo.class);
-    static { LOG.setLevel(Level.DEBUG);}
+    static { LOG.setLevel(Level.INFO);}
 
     public void reduce(Text key, Iterable<IntWritable> values,
                        Context context) throws IOException, InterruptedException {
-        ArrayList<IntWritable> vv = new ArrayList<>();
-        values.forEach( x-> vv.add(x));
 
-        this.chiave = key;
+        ArrayList<Boolean> vv = new ArrayList<>();
+        values.forEach( x-> vv.add(Boolean.TRUE));
+
         this.result = new IntWritable(vv.size());
 
-        context.write(this.chiave , this.result);
+        context.write(key , this.result);
 
-        LOG.debug("* REDUCER_KEY: " + chiave + " * REDUCER_VALUE: " + result);
+        LOG.debug("* REDUCER_KEY: " + key + " * REDUCER_VALUE: " + result);
     }
 }

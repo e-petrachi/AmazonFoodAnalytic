@@ -1,7 +1,5 @@
 package mapreduce.job3;
 
-import com.opencsv.CSVParser;
-import mapreduce.AmazonFoodConstants;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
@@ -13,18 +11,20 @@ import java.io.IOException;
 
 
 public class AmazonFoodAnalyticMapperTwo extends
-        Mapper<Text, Text, Text, IntWritable> {
+        Mapper<LongWritable, Text, Text, IntWritable> {
+    // il mapper si legge il file con chiave LongWritable x forza !
 
     private IntWritable valore;
     private Text chiave;
 
     private static final Logger LOG = Logger.getLogger(AmazonFoodAnalyticMapperTwo.class);
-    static { LOG.setLevel(Level.DEBUG);}
+    static { LOG.setLevel(Level.INFO);}
 
-    public void map(Text key, Text value, Context context)
+    public void map(LongWritable key, Text value, Context context)
             throws IOException, InterruptedException {
 
-        this.chiave = new Text(key.toString() + " " + value.toString());
+
+        this.chiave = value;
         this.valore = new IntWritable(1);
 
         context.write(this.chiave, this.valore);
