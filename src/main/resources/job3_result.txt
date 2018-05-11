@@ -1,4 +1,4 @@
-// Esecuzione locale in 22,77 secondi
+// Esecuzione locale in 24.97 secondi
 // Qui sono salvati solo i primi 32K del file
 
 0006641040	B0005XN9HI	1
