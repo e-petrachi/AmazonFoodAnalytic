@@ -24,6 +24,7 @@ public class AmazonFoodAnalyticReducer extends
 
         TreeSet<String> users_ids = this.createUsersSet(values);
 
+
         ArrayList<String> users_list = new ArrayList<>(users_ids);
 
         while(users_list.size() > 1){

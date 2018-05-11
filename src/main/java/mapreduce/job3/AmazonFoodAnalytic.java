@@ -34,7 +34,7 @@ public class AmazonFoodAnalytic extends Configured implements Tool {
         job.setJarByClass(AmazonFoodAnalytic.class);
 
         job.setMapperClass(AmazonFoodAnalyticMapper.class);
-        job.setCombinerClass(AmazonFoodAnalyticReducer.class);
+        //job.setCombinerClass(AmazonFoodAnalyticReducer.class);
         job.setReducerClass(AmazonFoodAnalyticReducer.class);
 
         FileInputFormat.addInputPath(job, new Path(args[0]));
@@ -43,7 +43,23 @@ public class AmazonFoodAnalytic extends Configured implements Tool {
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(Text.class);
 
-        job.waitForCompletion(false);
+        job.waitForCompletion(true);
+
+        Job job2 = new Job(new Configuration(), "mapreduce.job3.AmazonFoodAnalytic");
+
+        job2.setJarByClass(AmazonFoodAnalytic.class);
+
+        job2.setMapperClass(AmazonFoodAnalyticMapperTwo.class);
+        //job.setCombinerClass(AmazonFoodAnalyticReducerTwo.class);
+        job2.setReducerClass(AmazonFoodAnalyticReducerTwo.class);
+
+        FileInputFormat.addInputPath(job2, new Path(args[1]));
+        FileOutputFormat.setOutputPath(job2, new Path(args[1] + "/final"));
+
+        job2.setOutputKeyClass(Text.class);
+        job2.setOutputValueClass(IntWritable.class);
+
+        job2.waitForCompletion(true);
 
         LOG.info("Job Finished in " + (System.currentTimeMillis() - startTime) / 1000.0 + " seconds");
 
