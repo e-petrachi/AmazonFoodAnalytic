@@ -118,5 +118,5 @@ e per ognuno i tempi d'esecuzione degli stessi rispettivamente in:
 2. Lanciare il comando seguente per eseguire un qualsiasi job del progetto, mettendo in numero del job di riferimendo al posto del simbolo ` * `  
 
 ```zsh
-$ $HIVE_HOME/bin/hive -f ~/hive/job*.hql 
+$HIVE_HOME/bin/hive -f ~/hive/job*.hql 
 ```
