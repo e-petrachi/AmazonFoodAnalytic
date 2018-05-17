@@ -51,7 +51,7 @@ public class AmazonFoodAnalyticMapper extends
         calendar.setTime(date);
         int year = calendar.get(Calendar.YEAR);
 
-        StringTokenizer tokenizer = new StringTokenizer(campi[AmazonFoodConstants.SUMMARY], "[\'_|$#<>\\^=\\[\\]\\*/\\\\,;,.\\-:()?!\"]");
+        StringTokenizer tokenizer = new StringTokenizer(campi[AmazonFoodConstants.SUMMARY], " [\'_|$#<>\\^=\\[\\]\\*/\\\\,;,.\\-:()?!\"]");
         //StringTokenizer tokenizer = new StringTokenizer(campi[AmazonFoodConstants.SUMMARY], " \t\n\r\f,.:;?![]'");
 
         while (tokenizer.hasMoreTokens()) {

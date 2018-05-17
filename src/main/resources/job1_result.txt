@@ -1,16 +1,14 @@
-// Esecuzione locale 17,584 secondi
-
 1999	a:3 | tale:3 | modern:3 | day:3 | fairy:3 | is:2 | educational:1 | book:1 | this:1 | whole:1 |
-2000	a:11 | bettlejuice:9 | master:6 | version:5 | :4 | great:4 | tv:3 | fanasy:3 | research:3 | afterlife:3 | 
-2001	beetlejuice:7 | dvd:6 | the:6 | a:4 | is:4 | but:3 | movie:3 | cheated:3 | terrible:3 | they:3 | 
-2002	a:20 | the:15 | great:14 | beetlejuice:12 | movie:9 | is:9 | this:9 | of:9 | it:8 | for:8 | 
-2003	the:23 | of:12 | not:11 | great:10 | and:9 | a:8 | for:8 | in:8 | best:8 | excellent:7 | 
-2004	the:116 | best:73 | a:50 | for:43 | good:41 | i:40 | is:39 | great:36 | coffee:31 | and:31 | 
-2005	the:213 | a:130 | best:121 | for:108 | great:102 | good:90 | :85 | and:82 | of:72 | it:70 | 
-2006	the:876 | great:764 | a:679 | best:569 | good:553 | for:499 | and:495 | tea:441 | it:377 | not:315 | 
-2007	great:3108 | the:2351 | good:2061 | best:1700 | a:1478 | for:1450 | and:1362 | tea:1360 | not:955 | i:933 | 
-2008	great:4511 | the:3774 | good:3245 | a:2623 | for:2484 | best:2374 | and:2267 | not:1740 | tea:1727 | it:1700 | 
-2009	great:7414 | the:5767 | good:4953 | a:4161 | best:3907 | for:3771 | and:3452 | not:2963 | it:2710 | my:2703 | 
-2010	great:11225 | the:8384 | good:7821 | for:6456 | a:5975 | best:5739 | and:5295 | not:4822 | my:4588 | it:4564 | 
-2011	great:20903 | the:15798 | good:14578 | for:12018 | a:11457 | not:10270 | it:9939 | and:9900 | best:9097 | my:9069 | 
-2012	great:24761 | good:18370 | the:18009 | a:14016 | for:13626 | and:12336 | not:12329 | it:12023 | love:10286 | coffee:10275 | 
+2000	a:11 | bettlejuice:9 | master:6 | version:5 | great:4 | tv:3 | fanasy:3 | research:3 | afterlife:3 | burton:3 |
+2001	beetlejuice:7 | dvd:6 | the:6 | a:4 | is:4 | but:3 | movie:3 | cheated:3 | they:3 | terrible:3 |
+2002	a:20 | the:15 | great:14 | beetlejuice:12 | movie:9 | is:9 | this:9 | of:9 | it:8 | for:8 |
+2003	the:23 | of:12 | not:11 | great:10 | and:9 | a:8 | for:8 | in:8 | best:8 | excellent:7 |
+2004	the:116 | best:73 | a:54 | for:43 | good:41 | i:40 | is:39 | great:36 | coffee:31 | and:31 |
+2005	the:213 | a:131 | best:121 | for:108 | great:102 | good:91 | and:82 | of:72 | it:70 | this:70 |
+2006	the:881 | great:766 | a:682 | best:569 | good:553 | for:499 | and:497 | tea:442 | it:377 | not:316 |
+2007	great:3116 | the:2356 | good:2069 | best:1702 | a:1518 | for:1450 | tea:1375 | and:1364 | not:959 | i:943 |
+2008	great:4524 | the:3791 | good:3275 | a:2637 | for:2492 | best:2378 | and:2273 | not:1745 | tea:1734 | it:1707 |
+2009	great:7448 | the:5774 | good:4973 | a:4197 | best:3911 | for:3772 | and:3465 | not:2982 | it:2724 | my:2708 |
+2010	great:11264 | the:8422 | good:7841 | for:6468 | a:6031 | best:5753 | and:5325 | not:4862 | my:4597 | it:4596 |
+2011	great:20980 | the:15872 | good:14632 | for:12021 | a:11547 | not:10320 | it:9967 | and:9935 | best:9129 | my:9074 |
+2012	great:24841 | good:18420 | the:18105 | a:14100 | for:13634 | not:12387 | and:12362 | it:12058 | coffee:10365 | love:10287 |

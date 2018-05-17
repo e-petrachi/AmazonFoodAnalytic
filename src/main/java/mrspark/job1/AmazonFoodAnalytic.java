@@ -83,7 +83,7 @@ public class AmazonFoodAnalytic {
     private static JavaPairRDD<Tuple2<Integer,String>, Integer> map4years_word(JavaRDD<ReviewsConstants> data) {
         return data.flatMapToPair( rc -> {
 
-            StringTokenizer tokenizer = new StringTokenizer(rc.getSUMMARY(), "[\'_|$#<>\\^=\\[\\]\\*/\\\\,;,.\\-:()?!\"]");
+            StringTokenizer tokenizer = new StringTokenizer(rc.getSUMMARY(), " [\'_|$#<>\\^=\\[\\]\\*/\\\\,;,.\\-:()?!\"]");
 
             //StringTokenizer tokenizer = new StringTokenizer(rc.getSUMMARY(), " \t\n\r\f,.:;?![]'");
             ArrayList<Tuple2<Tuple2<Integer,String>, Integer>> list2tuples = new ArrayList<>();

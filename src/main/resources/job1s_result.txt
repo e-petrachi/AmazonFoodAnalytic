@@ -1,5 +1,3 @@
-// Esecuzione locale 12,474 secondi
-
 (1999,[(3,fairy), (3,a), (3,tale), (3,day), (3,modern), (2,is), (1,this), (1,your), (1,to), (1,time)])
 (2000,[(11,a), (9,bettlejuice), (5,version), (4,), (4,great), (3,funny), (3,research), (3,fanasy), (3,master), (3,comedic)])
 (2001,[(7,beetlejuice), (4,is), (4,a), (3,great), (3,greatmovie), (3,movie), (3,the), (2,beatlejuice), (1,cakes), (1,style)])
