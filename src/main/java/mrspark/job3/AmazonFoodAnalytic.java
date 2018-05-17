@@ -44,11 +44,6 @@ public class AmazonFoodAnalytic {
                 .mapToPair( rc -> new Tuple2<>(rc.getUSERID(),rc.getPRODUCTID()))
                 .distinct();
 
-        JavaPairRDD<String, Optional<String>> user2id_copia = data
-                .mapToPair( rc -> new Tuple2<>(rc.getUSERID(),Optional.of(rc.getPRODUCTID())))
-                .distinct();
-
-
         JavaPairRDD<String, Tuple2<String,String>> user2id2id = user2id
                 .join(user2id)
                 .filter(x -> ! x._2()._1().equals(x._2()._2()))

@@ -59,11 +59,11 @@ public class AmazonFoodAnalyticReducer extends
     protected Text getResult(HashMap<Integer, ArrayList<Integer>> year2score){
         String s = "";
         for (Integer year : year2score.keySet()){
-            int sum = 0;
+            double sum = 0.0;
             for (Integer score: year2score.get(year)){
                 sum+=score;
             }
-            s = s + year + ":" + sum/year2score.get(year).size() + " ";
+            s = s + year + ":" + Math.round(sum/year2score.get(year).size() * 100.0)/100.0 + " ";
         }
         return new Text(s);
     }

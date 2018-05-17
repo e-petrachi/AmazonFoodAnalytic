@@ -1,14 +1,14 @@
-1999   day 3modern 3fairy 3tale 3a 3is 2your 1way 1every 1great 1
-2000   a 11bettlejuice 9version 5great 4master 3directed 3funny 3is 3fresh 3warning 3
-2001   beetlejuice 7a 4is 4great 3the 3greatmovie 3movie 3beatlejuice 2catch 1favorite 1
-2002   a 15great 14the 12beetlejuice 12movie 9for 8is 7this 7of 6comedy 6
-2003   the 23of 12not 10in 8a 8for 8best 8great 7outstanding 7excellent 7
-2004   the 108best 72a 46for 42i 39good 39is 37great 36coffee 29ever 29
-2005   the 191a 121best 109for 100great 98good 86and 70this 65of 65it 64
-2006   the 806great 688a 611best 540good 507for 432tea 405and 389it 325i 275
-2007   great 2929the 2218good 1930best 1663a 1379for 1351tea 1316and 1148i 880not 791
-2008   great 4304the 3472good 3004a 2385best 2310for 2282and 1969tea 1681it 1508my 1394
-2009   great 6975the 5279good 4625best 3744a 3664for 3394and 2928my 2529tea 2497not 2400
-2010   great 10649the 7724good 7219for 5973best 5603a 5398and 4502my 4364it 3947not 3894
-2011   great 19774the 14279good 13451for 11100a 10361best 8876it 8746my 8647not 8476and 8464
-2012   great 23277good 16989the 16466a 12490for 12443it 10618and 10594not 10195coffee 9747love 9728
+1999: day 3, modern 3, fairy 3, tale 3, a 3, is 2, your 1, way 1, every 1, great 1
+2000: a 11, bettlejuice 9, version 5, great 4, master 3, directed 3, funny 3, is 3, fresh 3, warning 3
+2001: beetlejuice 7, a 4, is 4, great 3, the 3, greatmovie 3, movie 3, beatlejuice 2, catch 1, favorite 1
+2002: a 15, great 14, the 12, beetlejuice 12, movie 9, for 8, is 7, this 7, of 6, comedy 6
+2003: the 23, of 12, not 10, in 8, a 8, for 8, best 8, great 7, outstanding 7, excellent 7
+2004: the 108, best 72, a 46, for 42, i 39, good 39, is 37, great 36, coffee 29, ever 29
+2005: the 191, a 121, best 109, for 100, great 98, good 86, and 70, this 65, of 65, it 64
+2006: the 806, great 688, a 611, best 540, good 507, for 432, tea 405, and 389, it 325, i 275
+2007: great 2929, the 2218, good 1930, best 1663, a 1379, for 1351, tea 1316, and 1148, i 880, not 791
+2008: great 4304, the 3472, good 3004, a 2385, best 2310, for 2282, and 1969, tea 1681, it 1508, my 1394
+2009: great 6975, the 5279, good 4625, best 3744, a 3664, for 3394, and 2928, my 2529, tea 2497, not 2400
+2010: great 10649, the 7724, good 7219, for 5973, best 5603, a 5398, and 4502, my 4364, it 3947, not 3894
+2011: great 19774, the 14279, good 13451, for 11100, a 10361, best 8876, it 8746, my 8647, not 8476, and 8464
+2012: great 23277, good 16989, the 16466, a 12490, for 12443, it 10618, and 10594, not 10195, coffee 9747, love 9728

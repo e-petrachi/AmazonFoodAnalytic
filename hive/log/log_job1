@@ -1,0 +1,163 @@
+
+Logging initialized using configuration in jar:file:/home/dibbidouble/Software/hive/hive/lib/hive-common-2.3.3.jar!/hive-log4j2.properties Async: true
+DROP TABLE IF EXISTS review
+OK
+Time taken: 12.282 seconds
+
+CREATE TABLE review (id int, productid string, userid string, profilename string, hfn int, hfd int, score int, data bigint, summary string, body string) row format delimited fields terminated by ','
+OK
+Time taken: 0.712 seconds
+
+
+LOAD DATA LOCAL INPATH '/home/dibbidouble/Workspace/uni/bigdata/firstproject/amazon-fine-food-reviews/Reviews.csv' OVERWRITE INTO TABLE review
+Loading data to table default.review
+OK
+Time taken: 2.596 seconds
+
+
+DROP TABLE IF EXISTS anno_summary
+OK
+Time taken: 0.199 seconds
+
+CREATE TABLE anno_summary (anno int, summary string) row format delimited fields terminated by ',' COLLECTION ITEMS TERMINATED BY ' '
+OK
+Time taken: 0.109 seconds
+ 
+INSERT INTO anno_summary 
+SELECT year(from_unixtime(data)) AS anno, lower(trim(regexp_replace(summary, '[\'_|$#<>\\^=\\[\\]\\*/\\\\,;,.\\-:()?!\"]', " "))) 
+FROM review
+WARNING: Hive-on-MR is deprecated in Hive 2 and may not be available in the future versions. Consider using a different execution engine (i.e. spark, tez) or using Hive 1.X releases.
+Query ID = dibbidouble_20180512130007_0468fdc8-db7d-4807-a330-23e87b9c2a95
+Total jobs = 3
+Launching Job 1 out of 3
+Number of reduce tasks is set to 0 since there's no reduce operator
+Job running in-process (local Hadoop)
+2018-05-12 13:00:13,137 Stage-1 map = 0%,  reduce = 0%
+2018-05-12 13:00:22,195 Stage-1 map = 100%,  reduce = 0%
+Ended Job = job_local975679587_0001
+Stage-4 is filtered out by condition resolver.
+Stage-3 is selected by condition resolver.
+Stage-5 is filtered out by condition resolver.
+Launching Job 3 out of 3
+Number of reduce tasks is set to 0 since there's no reduce operator
+Job running in-process (local Hadoop)
+2018-05-12 13:00:24,748 Stage-3 map = 0%,  reduce = 0%
+2018-05-12 13:00:26,756 Stage-3 map = 100%,  reduce = 0%
+Ended Job = job_local143354489_0002
+Loading data to table default.anno_summary
+MapReduce Jobs Launched: 
+Stage-Stage-1:  HDFS Read: 569356534 HDFS Write: 630359743 SUCCESS
+Stage-Stage-3:  HDFS Read: 316026903 HDFS Write: 331132898 SUCCESS
+Total MapReduce CPU Time Spent: 0 msec
+OK
+Time taken: 19.345 seconds
+
+
+DROP TABLE IF EXISTS result
+OK
+Time taken: 0.162 seconds
+
+CREATE TABLE result (anno int, word string, occ int) row format delimited fields terminated by ','
+OK
+Time taken: 0.102 seconds
+
+INSERT OVERWRITE TABLE result 
+SELECT anno, word, COUNT(*) as count 
+FROM anno_summary LATERAL VIEW explode(split(summary, ' +')) lTable as word 
+WHERE anno>=1999 
+GROUP BY anno,word 
+ORDER BY count DESC, word ASC
+WARNING: Hive-on-MR is deprecated in Hive 2 and may not be available in the future versions. Consider using a different execution engine (i.e. spark, tez) or using Hive 1.X releases.
+Query ID = dibbidouble_20180512130027_b9bd76c4-fdd0-423a-a2ba-cf4632ed488f
+Total jobs = 2
+Launching Job 1 out of 2
+Number of reduce tasks not specified. Estimated from input data size: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+Job running in-process (local Hadoop)
+2018-05-12 13:00:29,193 Stage-1 map = 0%,  reduce = 0%
+2018-05-12 13:00:37,406 Stage-1 map = 100%,  reduce = 0%
+2018-05-12 13:00:40,473 Stage-1 map = 100%,  reduce = 100%
+Ended Job = job_local1890518027_0003
+Launching Job 2 out of 2
+Number of reduce tasks determined at compile time: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+Job running in-process (local Hadoop)
+2018-05-12 13:00:42,382 Stage-2 map = 0%,  reduce = 0%
+2018-05-12 13:00:43,389 Stage-2 map = 100%,  reduce = 0%
+2018-05-12 13:00:44,403 Stage-2 map = 100%,  reduce = 100%
+Ended Job = job_local2138683861_0004
+Loading data to table default.result
+MapReduce Jobs Launched: 
+Stage-Stage-1:  HDFS Read: 662282180 HDFS Write: 662265796 SUCCESS
+Stage-Stage-2:  HDFS Read: 662282180 HDFS Write: 663424521 SUCCESS
+Total MapReduce CPU Time Spent: 0 msec
+OK
+Time taken: 17.307 seconds
+
+
+DROP TABLE IF EXISTS result_rank
+OK
+Time taken: 0.143 seconds
+
+CREATE TABLE result_rank as (
+    SELECT anno, word, occ, row_number() over (partition by anno order by occ desc) as rnk
+    FROM result
+)
+WARNING: Hive-on-MR is deprecated in Hive 2 and may not be available in the future versions. Consider using a different execution engine (i.e. spark, tez) or using Hive 1.X releases.
+Query ID = dibbidouble_20180512130044_e58233bb-bf09-4532-84d5-e34cfdf5a77e
+Total jobs = 1
+Launching Job 1 out of 1
+Number of reduce tasks not specified. Estimated from input data size: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+Job running in-process (local Hadoop)
+2018-05-12 13:00:47,030 Stage-1 map = 100%,  reduce = 0%
+2018-05-12 13:00:48,035 Stage-1 map = 100%,  reduce = 100%
+Ended Job = job_local1151317515_0005
+Moving data to directory hdfs://localhost:9000/user/hive/warehouse/result_rank
+MapReduce Jobs Launched: 
+Stage-Stage-1:  HDFS Read: 664599630 HDFS Write: 666141472 SUCCESS
+Total MapReduce CPU Time Spent: 0 msec
+OK
+Time taken: 3.43 seconds
+
+
+INSERT OVERWRITE LOCAL DIRECTORY '/home/dibbidouble/Workspace/uni/bigdata/firstproject/Hive/job1h_result'
+SELECT anno, collect_set(concat_ws(" ",word, cast(occ as string))) 
+FROM result_rank 
+WHERE rnk<=10 
+GROUP BY anno
+WARNING: Hive-on-MR is deprecated in Hive 2 and may not be available in the future versions. Consider using a different execution engine (i.e. spark, tez) or using Hive 1.X releases.
+Query ID = dibbidouble_20180512130048_96cca2b3-cf79-4236-a6b0-250d2a36adef
+Total jobs = 1
+Launching Job 1 out of 1
+Number of reduce tasks not specified. Estimated from input data size: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+Job running in-process (local Hadoop)
+2018-05-12 13:00:50,109 Stage-1 map = 100%,  reduce = 100%
+Ended Job = job_local2141028044_0006
+Moving data to local directory /home/dibbidouble/Workspace/uni/bigdata/firstproject/Hive/job1h_result
+MapReduce Jobs Launched: 
+Stage-Stage-1:  HDFS Read: 667716082 HDFS Write: 667699698 SUCCESS
+Total MapReduce CPU Time Spent: 0 msec
+OK
+Time taken: 1.72 seconds

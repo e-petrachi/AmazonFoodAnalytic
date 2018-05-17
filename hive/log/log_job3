@@ -1,0 +1,139 @@
+
+Logging initialized using configuration in jar:file:/home/dibbidouble/Software/hive/hive/lib/hive-common-2.3.3.jar!/hive-log4j2.properties Async: true
+DROP TABLE IF EXISTS review
+OK
+Time taken: 12.134 seconds
+
+CREATE TABLE review (id int, productid string, userid string, profilename string, hfn int, hfd int, score int, data bigint, summary string, body string) row format delimited fields terminated by ','
+OK
+Time taken: 0.813 seconds
+
+
+LOAD DATA LOCAL INPATH '/home/dibbidouble/Workspace/uni/bigdata/firstproject/amazon-fine-food-reviews/Reviews.csv' OVERWRITE INTO TABLE review
+Loading data to table default.review
+OK
+Time taken: 2.542 seconds
+
+
+DROP TABLE IF EXISTS prodotto_utente
+OK
+Time taken: 0.189 seconds
+
+CREATE TABLE prodotto_utente (productid string, userid string) row format delimited fields terminated by ',' COLLECTION ITEMS TERMINATED BY ' '
+OK
+Time taken: 0.097 seconds
+ 
+INSERT INTO prodotto_utente 
+SELECT DISTINCT productid, userid
+FROM review
+WARNING: Hive-on-MR is deprecated in Hive 2 and may not be available in the future versions. Consider using a different execution engine (i.e. spark, tez) or using Hive 1.X releases.
+Query ID = dibbidouble_20180512130347_5f75b8f9-54f3-49e4-9a1f-ee29b7b6af60
+Total jobs = 1
+Launching Job 1 out of 1
+Number of reduce tasks not specified. Estimated from input data size: 2
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+Job running in-process (local Hadoop)
+2018-05-12 13:03:52,185 Stage-1 map = 0%,  reduce = 0%
+2018-05-12 13:03:57,398 Stage-1 map = 100%,  reduce = 0%
+2018-05-12 13:03:58,410 Stage-1 map = 50%,  reduce = 0%
+2018-05-12 13:03:59,550 Stage-1 map = 100%,  reduce = 0%
+2018-05-12 13:04:02,588 Stage-1 map = 100%,  reduce = 50%
+2018-05-12 13:04:03,601 Stage-1 map = 100%,  reduce = 100%
+Ended Job = job_local332191446_0001
+Loading data to table default.prodotto_utente
+MapReduce Jobs Launched: 
+Stage-Stage-1:  HDFS Read: 1171182306 HDFS Write: 1225265752 SUCCESS
+Total MapReduce CPU Time Spent: 0 msec
+OK
+Time taken: 16.854 seconds
+
+
+DROP TABLE IF EXISTS prodotto_utente_2
+OK
+Time taken: 0.176 seconds
+
+CREATE TABLE prodotto_utente_2 (productid1 string, productid2 string, userid string) row format delimited fields terminated by ',' COLLECTION ITEMS TERMINATED BY ' '
+OK
+Time taken: 0.086 seconds
+ 
+INSERT INTO prodotto_utente_2 
+SELECT p1.productid, p2.productid, p1.userid
+FROM prodotto_utente p1 inner join prodotto_utente p2 on p1.userid=p2.userid and p1.productid<>p2.productid and p1.productid<p2.productid
+WARNING: Hive-on-MR is deprecated in Hive 2 and may not be available in the future versions. Consider using a different execution engine (i.e. spark, tez) or using Hive 1.X releases.
+Query ID = dibbidouble_20180512130404_7b697eee-881a-4481-8770-ea320c272850
+Total jobs = 3
+Stage-7 is selected by condition resolver.
+Stage-8 is filtered out by condition resolver.
+Stage-1 is filtered out by condition resolver.
+2018-05-12 13:04:15	Starting to launch local task to process map join;	maximum memory = 239075328
+2018-05-12 13:04:20	Processing rows:	200000	Hashtable size:	199999	Memory usage:	129229680	percentage:	0,541
+2018-05-12 13:04:20	Dump the side-table for tag: 1 with group count: 256060 into file: file:/tmp/dibbidouble/6aa885db-f005-42f2-8c8e-a021eb55803e/hive_2018-05-12_13-04-04_456_7259024167894731602-1/-local-10002/HashTable-Stage-4/MapJoin-mapfile01--.hashtable
+2018-05-12 13:04:22	Uploaded 1 File to: file:/tmp/dibbidouble/6aa885db-f005-42f2-8c8e-a021eb55803e/hive_2018-05-12_13-04-04_456_7259024167894731602-1/-local-10002/HashTable-Stage-4/MapJoin-mapfile01--.hashtable (16155517 bytes)
+2018-05-12 13:04:22	End of local task; Time Taken: 7.324 sec.
+Execution completed successfully
+MapredLocal task succeeded
+Launching Job 2 out of 3
+Number of reduce tasks is set to 0 since there's no reduce operator
+Job running in-process (local Hadoop)
+2018-05-12 13:04:27,111 Stage-4 map = 0%,  reduce = 0%
+2018-05-12 13:04:37,615 Stage-4 map = 50%,  reduce = 0%
+2018-05-12 13:04:40,625 Stage-4 map = 100%,  reduce = 0%
+Ended Job = job_local1315325613_0002
+Loading data to table default.prodotto_utente_2
+MapReduce Jobs Launched: 
+Stage-Stage-4:  HDFS Read: 315348555 HDFS Write: 408815759 SUCCESS
+Total MapReduce CPU Time Spent: 0 msec
+OK
+Time taken: 36.741 seconds
+
+
+INSERT OVERWRITE LOCAL DIRECTORY '/home/dibbidouble/Workspace/uni/bigdata/firstproject/Hive/job3h_partial'
+SELECT productid1, productid2, COUNT(*) 
+FROM prodotto_utente_2
+GROUP BY productid1, productid2
+WARNING: Hive-on-MR is deprecated in Hive 2 and may not be available in the future versions. Consider using a different execution engine (i.e. spark, tez) or using Hive 1.X releases.
+Query ID = dibbidouble_20180512130441_58690724-0d59-4658-bd98-cfe38cd2bb40
+Total jobs = 1
+Launching Job 1 out of 1
+Number of reduce tasks not specified. Estimated from input data size: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+Job running in-process (local Hadoop)
+2018-05-12 13:04:42,887 Stage-1 map = 0%,  reduce = 0%
+2018-05-12 13:05:00,320 Stage-1 map = 67%,  reduce = 0%
+2018-05-12 13:05:06,437 Stage-1 map = 93%,  reduce = 0%
+2018-05-12 13:05:07,440 Stage-1 map = 100%,  reduce = 0%
+2018-05-12 13:05:15,460 Stage-1 map = 100%,  reduce = 100%
+Ended Job = job_local273089452_0003
+Moving data to local directory /home/dibbidouble/Workspace/uni/bigdata/firstproject/Hive/job3h_partial
+MapReduce Jobs Launched: 
+Stage-Stage-1:  HDFS Read: 817647902 HDFS Write: 817631518 SUCCESS
+Total MapReduce CPU Time Spent: 0 msec
+OK
+Time taken: 34.572 seconds
+
+
+DROP TABLE IF EXISTS result
+OK
+Time taken: 0.28 seconds
+
+CREATE TABLE result (productid string, anno int, avg_score double) row format delimited fields terminated by ','
+OK
+Time taken: 0.163 seconds
+
+INSERT OVERWRITE TABLE result 
+SELECT productid, anno, round(AVG(score), 2) as avg_score 
+FROM prodotto_utente
+WHERE anno>=2003 and anno<=2012
+GROUP BY productid, anno 
+ORDER BY productid, anno DESC
+FAILED: SemanticException [Error 10004]: Line 5:6 Invalid table alias or column reference 'anno': (possible column names are: productid, userid)

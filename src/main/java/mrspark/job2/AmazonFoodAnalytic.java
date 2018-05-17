@@ -50,16 +50,12 @@ public class AmazonFoodAnalytic {
             return new ReviewsConstants(fields[AmazonFoodConstants.PRODUCTID],time,score);
         }).filter(Objects::nonNull).filter(x -> x.getYEAR() >= AmazonFoodConstants.YEARFROM && x.getYEAR() <= AmazonFoodConstants.YEARTO);
 
-
-        JavaPairRDD<Tuple2<String,Integer>, Integer> id2year2score = data
-                .mapToPair( rc -> new Tuple2<>(new Tuple2<>(rc.getPRODUCTID(),rc.getYEAR()), rc.getSCORE()));
-
-        JavaPairRDD<Tuple2<String,Integer>, Tuple2<Integer, Integer>> id2year2score2count = data
-                .mapToPair( rc -> new Tuple2<>(new Tuple2<>(rc.getPRODUCTID(),rc.getYEAR()), new Tuple2<>(rc.getSCORE(),1)))
+        JavaPairRDD<Tuple2<String,Integer>, Tuple2<Double, Integer>> id2year2score2count = data
+                .mapToPair( rc -> new Tuple2<>(new Tuple2<>(rc.getPRODUCTID(),rc.getYEAR()), new Tuple2<>((double) rc.getSCORE(),1)))
                 .reduceByKey((a,b) -> new Tuple2<>(a._1() + b._1(),a._2() + b._2()));
 
         JavaPairRDD<Tuple2<String,Integer>, Double> id2year2avgscore = id2year2score2count
-                .mapToPair( x -> new Tuple2<>(x._1(), new Double(x._2()._1()/x._2()._2())));
+                .mapToPair( x -> new Tuple2<>(x._1(), Math.round(x._2()._1()/x._2()._2() * 100.0)/100.0 ));
 
         JavaPairRDD<String, Tuple2<Integer,Double>> result = id2year2avgscore
                 .mapToPair( x -> new Tuple2<>(x._1()._1(), new Tuple2<>(x._1()._2(),x._2())));

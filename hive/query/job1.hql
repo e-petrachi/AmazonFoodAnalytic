@@ -1,7 +1,7 @@
 DROP TABLE IF EXISTS review;
 CREATE TABLE review (id int, productid string, userid string, profilename string, hfn int, hfd int, score int, data bigint, summary string, body string) row format delimited fields terminated by ',';
 
-LOAD DATA LOCAL INPATH '/home/dibbidouble/Workspace/uni/bigdata/firstproject/amazon-fine-food-reviews/Reviews.csv' OVERWRITE INTO TABLE review;
+LOAD DATA LOCAL INPATH '~/Reviews.csv' OVERWRITE INTO TABLE review;
 
 DROP TABLE IF EXISTS anno_summary;
 CREATE TABLE anno_summary (anno int, summary string) row format delimited fields terminated by ',' COLLECTION ITEMS TERMINATED BY ' '; 
@@ -24,8 +24,7 @@ CREATE TABLE result_rank as (
     FROM result
 );
 
-INSERT OVERWRITE LOCAL DIRECTORY '/home/dibbidouble/Workspace/uni/bigdata/firstproject/Hive/job1h_result'
-SELECT anno, collect_set(concat_ws(" ",word, cast(occ as string))) 
+SELECT anno, collect_set(concat_ws(" ",word, cast(occ as string)))
 FROM result_rank 
 WHERE rnk<=10 
 GROUP BY anno;
